@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>Countdown Timer</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.countdown {
+  font-size: 48px;
+  text-align: center;
+  margin-top: 50px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="countdown" id="countdown">0</div>
+</div>
+
+<script>
+var countdown = 0;
+const intervalId = setInterval(() => {
+  document.getElementById('countdown').innerText = countdown;
+  countdown++;
+  if (countdown >= 1000) {
+    clearInterval(intervalId); 
+  }
+}, 1000);
+</script>
+</body>
+</html>
+
