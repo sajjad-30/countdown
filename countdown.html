@@ -1,3 +1,5 @@
+
+<!DOCTYPE html>
 <html>
 <head>
   <title>Countdown Timer</title>
@@ -11,30 +13,65 @@
       width: 100vw;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
     }
     .countdown {
       font-size: 48px;
       text-align: center;
-      margin-top: 50px;
+      margin-bottom: 20px;
+    }
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="countdown" id="countdown">0</div>
+    <div class="buttons">
+      <button id="start-button">Start</button>
+      <button id="stop-button" disabled>Stop</button>
+    </div>
   </div>
 
   <script>
-    var countdown = 0;
-    const intervalId = setInterval(() => {
-      document.getElementById('countdown').innerText = countdown;
-      countdown++;
-      if (countdown >= 1000) {
-        clearInterval(intervalId); 
+    let countdown = 0;
+    let intervalId;
+    let isRunning = false;
+
+    document.getElementById('start-button').addEventListener('click', startCountdown);
+    document.getElementById('stop-button').addEventListener('click', stopCountdown);
+
+    function startCountdown() {
+      if (!isRunning) {
+        intervalId = setInterval(() => {
+          document.getElementById('countdown').innerText = countdown;
+          countdown++;
+          if (countdown >= 1000) {
+            clearInterval(intervalId);
+            isRunning = false;
+          }
+        }, 500);
+        isRunning = true;
+        document.getElementById('start-button').disabled = true;
+        document.getElementById('stop-button').disabled = false;
       }
-    }, 1000);
+    }
+
+    function stopCountdown() {
+      clearInterval(intervalId);
+      isRunning = false;
+      document.getElementById('start-button').disabled = false;
+      document.getElementById('stop-button').disabled = true;
+    }
   </script>
 </body>
 </html>
